@@ -11,6 +11,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -36,6 +37,10 @@ public class Objetivo {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "objetivo", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("objetivo")
 	private List<Tarefa> tarefas;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("objetivo")
+	private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -76,6 +81,15 @@ public class Objetivo {
 	public void setTarefas(List<Tarefa> tarefas) {
 		this.tarefas = tarefas;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 	
 	
 	

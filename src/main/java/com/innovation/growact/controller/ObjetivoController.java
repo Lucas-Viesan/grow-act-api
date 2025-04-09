@@ -35,7 +35,14 @@ public class ObjetivoController {
 	public ResponseEntity<List<Objetivo>> getAll(){
 		return ResponseEntity.ok(objetivoRepository.findAll());
     }
-		
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Objetivo> getById(@PathVariable Long id){
+		return objetivoRepository.findById(id)
+				.map(resposta -> ResponseEntity.ok(resposta))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
+	
     @PostMapping
     public ResponseEntity<Objetivo> post(@Valid @RequestBody Objetivo objetivo){
     	return ResponseEntity.status(HttpStatus.CREATED)

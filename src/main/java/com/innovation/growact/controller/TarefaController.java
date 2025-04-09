@@ -40,6 +40,13 @@ public class TarefaController {
 		return ResponseEntity.ok(tarefaRepository.findAll());
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<Tarefa> getById(@PathVariable Long id){
+		return tarefaRepository.findById(id)
+				.map(resposta -> ResponseEntity.ok(resposta))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
+	
 	@PostMapping
 	public ResponseEntity<Tarefa> post (@Valid @RequestBody Tarefa tarefa){
 	    if(objetivoRepository.existsById(tarefa.getObjetivo().getId()))
